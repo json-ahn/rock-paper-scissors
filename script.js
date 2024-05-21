@@ -1,9 +1,10 @@
-console.log('hello world');
 
+// GOOD
 let humanScore = 0;
 let computerScore = 0;
 
 
+// GOOD
 function getComputerChoice() {
     let randomNum = Math.floor(Math.random() * 3) + 1;
 
@@ -16,13 +17,27 @@ function getComputerChoice() {
     }
 }
 
+// GOOD
 function getHumanChoice() {
-    const choice = prompt("Rock Paper Scissors");
-    return choice;
+    let choice = prompt("Rock Paper Scissors");
+
+    let choiceLower = choice.toLowerCase();
+
+    if(choiceLower == "rock") {
+        return "rock";
+    } else if(choiceLower == "paper") {
+        return "paper";
+    } else if(choiceLower == "scissors") {
+        return "scissors";
+    } else {
+        "Invalid Choice. Please try again.";
+        getHumanChoice();
+    }
 }
 
-function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
+function playRound(humanChoices, computerChoices) {
+    let humanChoice = humanChoices.toLowerCase();
+    let computerChoice = computerChoices.toLowerCase();
 
     if(humanChoice == "rock" && computerChoice == "paper") {
         computerScore++;
@@ -57,22 +72,21 @@ function playRound(humanChoice, computerChoice) {
     
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-
 
 function playGame() {
-    playRound(humanSelection, computerSelection);
-    playRound(humanSelection, computerSelection);
-    playRound(humanSelection, computerSelection);
-    playRound(humanSelection, computerSelection);
-    playRound(humanSelection, computerSelection);
+    for(let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        
+        playRound(humanSelection, computerSelection);
+
+        console.log("Current score - Computer: " + computerScore + " Player: " + humanScore);
+    }
 
     if(humanScore < computerScore) {
-        return "Computer Wins";
+        console.log("Computer Wins");
     } else {
-        return "Human Wins";
+        console.log("Human Wins");
     }
 }
 
